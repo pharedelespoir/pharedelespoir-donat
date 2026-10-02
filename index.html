@@ -1,237 +1,280 @@
 <!DOCTYPE html>
-<html lang="fr" class="h-full bg-slate-50">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coordonnées Bancaires - PHARE DE L'ESPOIR</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            900: '#0c4a6e',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
     <style>
-        .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+        :root {
+            --primary: #1e3a8a;
+            --primary-hover: #1d4ed8;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 15px;
+        }
+
+        .container {
+            background: var(--card-bg);
+            max-width: 540px;
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 28px 24px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 24px;
+        }
+
+        .info-card {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-details {
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+            word-break: break-all;
+            font-family: monospace, sans-serif;
+        }
+
+        .btn-copy {
+            background-color: var(--card-bg);
+            color: var(--primary);
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.825rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .btn-copy:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .btn-copy.copied {
+            background-color: var(--success) !important;
+            color: white !important;
+            border-color: var(--success) !important;
+        }
+
+        .actions {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-main {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            text-align: center;
+        }
+
+        .btn-main:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-main.copied {
+            background-color: var(--success) !important;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 16px;
+        }
+
+        @media (max-width: 480px) {
+            .info-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .btn-copy {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
-<body class="h-full flex flex-col justify-between text-slate-800 font-sans antialiased bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100 min-h-screen p-4 sm:p-6 md:p-8">
+<body>
 
-    <div class="max-w-xl mx-auto w-full flex-grow flex flex-col justify-center my-auto">
+<div class="container">
+    <div class="header">
+        <h1>PHARE DE L'ESPOIR</h1>
+        <p>Coordonnées Bancaires pour Virement</p>
+    </div>
+
+    <div class="content">
+        <!-- Titulaire -->
+        <div class="info-card">
+            <div class="info-details">
+                <div class="info-label">Bénéficiaire (Nom)</div>
+                <div class="info-value" style="font-family: inherit;">PHARE DE L'ESPOIR</div>
+            </div>
+            <button class="btn-copy" data-copy="PHARE DE L'ESPOIR" onclick="copyText(this)">
+                Copier
+            </button>
+        </div>
+
+        <!-- IBAN -->
+        <div class="info-card">
+            <div class="info-details">
+                <div class="info-label">IBAN</div>
+                <div class="info-value">FR76 1009 6182 3200 0614 4930 239</div>
+            </div>
+            <button class="btn-copy" data-copy="FR7610096182320006144930239" onclick="copyText(this)">
+                Copier
+            </button>
+        </div>
+
+        <!-- BIC -->
+        <div class="info-card">
+            <div class="info-details">
+                <div class="info-label">BIC / SWIFT</div>
+                <div class="info-value">CMCIFRPP</div>
+            </div>
+            <button class="btn-copy" data-copy="CMCIFRPP" onclick="copyText(this)">
+                Copier
+            </button>
+        </div>
+
+        <!-- Motif / Raison -->
+        <div class="info-card">
+            <div class="info-details">
+                <div class="info-label">Motif du virement</div>
+                <div class="info-value" style="font-family: inherit;">DONATION</div>
+            </div>
+            <button class="btn-copy" data-copy="DONATION" onclick="copyText(this)">
+                Copier
+            </button>
+        </div>
+
+        <div class="actions">
+            <button class="btn-main" id="copy-all-btn" onclick="copyAll()">
+                Tout copier (RIB complet)
+            </button>
+        </div>
+
+        <div class="footer-note">
+            Cliquez sur un bouton pour copier l'information directement dans le presse-papier.
+        </div>
+    </div>
+</div>
+
+<script>
+    function copyText(button) {
+        const textToCopy = button.getAttribute('data-copy');
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            const originalText = button.innerHTML;
+            button.innerHTML = 'Copié !';
+            button.classList.add('copied');
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.classList.remove('copied');
+            }, 2000);
+        }).catch(err => {
+            console.error('Erreur lors de la copie:', err);
+        });
+    }
+
+    function copyAll() {
+        const fullRib = `Bénéficiaire: PHARE DE L'ESPOIR\nIBAN: FR7610096182320006144930239\nBIC: CMCIFRPP\nMotif: DONATION`;
+        const button = document.getElementById('copy-all-btn');
         
-        <!-- Header / Logo Section -->
-        <div class="text-center mb-6 sm:mb-8">
-            <div class="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-brand-600 text-white shadow-xl shadow-brand-500/30 mb-4 transform hover:scale-105 transition-transform duration-300">
-                <i class="fa-solid fa-hand-holding-heart text-2xl sm:text-3xl"></i>
-            </div>
-            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">PHARE DE L'ESPOIR</h1>
-            <p class="text-slate-500 text-sm sm:text-base mt-1 font-medium">Coordonnées bancaires pour virement / don</p>
-        </div>
-
-        <!-- Main Card Container -->
-        <div class="glass-card rounded-3xl shadow-2xl p-6 sm:p-8 relative overflow-hidden border border-white/80">
+        navigator.clipboard.writeText(fullRib).then(() => {
+            const originalText = button.innerHTML;
+            button.innerHTML = 'Tout a été copié !';
+            button.classList.add('copied');
             
-            <!-- Top Action Bar -->
-            <div class="flex items-center justify-between pb-6 mb-6 border-b border-slate-200/80">
-                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    Compte Vérifié
-                </span>
-                
-                <button onclick="copyAllDetails()" class="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-brand-700 bg-brand-50 hover:bg-brand-100 active:bg-brand-200 rounded-xl transition-all duration-200 shadow-sm border border-brand-200/60">
-                    <i class="fa-regular fa-copy"></i>
-                    <span>Tout copier</span>
-                </button>
-            </div>
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.classList.remove('copied');
+            }, 2000);
+        });
+    }
+</script>
 
-            <!-- Fields List -->
-            <div class="space-y-4 sm:space-y-5">
-                
-                <!-- Field 1: Nom / Bénéficiaire -->
-                <div class="bg-white/80 rounded-2xl p-4 border border-slate-200/60 shadow-sm hover:border-brand-300 transition-colors">
-                    <div class="flex justify-between items-start gap-2">
-                        <div class="flex-1 min-w-0">
-                            <span class="text-xs font-medium text-slate-400 uppercase tracking-wider block mb-1">Titulaire du compte (Nom)</span>
-                            <span id="field-nom" class="text-slate-800 font-semibold text-base sm:text-lg block truncate">PHARE DE L'ESPOIR</span>
-                        </div>
-                        <button onclick="copyToClipboard('field-nom', 'btn-nom')" id="btn-nom" class="p-2.5 text-slate-400 hover:text-brand-600 hover:bg-brand-50 active:bg-brand-100 rounded-xl transition-all flex-shrink-0" title="Copier le nom">
-                            <i class="fa-regular fa-copy text-lg"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Field 2: IBAN -->
-                <div class="bg-white/80 rounded-2xl p-4 border border-slate-200/60 shadow-sm hover:border-brand-300 transition-colors">
-                    <div class="flex justify-between items-start gap-2">
-                        <div class="flex-1 min-w-0">
-                            <span class="text-xs font-medium text-slate-400 uppercase tracking-wider block mb-1">IBAN</span>
-                            <span id="field-iban" class="text-slate-900 font-mono font-bold text-base sm:text-lg tracking-wide block break-all">FR7610096182320006144930239</span>
-                        </div>
-                        <button onclick="copyToClipboard('field-iban', 'btn-iban')" id="btn-iban" class="p-2.5 text-slate-400 hover:text-brand-600 hover:bg-brand-50 active:bg-brand-100 rounded-xl transition-all flex-shrink-0" title="Copier l'IBAN">
-                            <i class="fa-regular fa-copy text-lg"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Field 3: BIC -->
-                <div class="bg-white/80 rounded-2xl p-4 border border-slate-200/60 shadow-sm hover:border-brand-300 transition-colors">
-                    <div class="flex justify-between items-start gap-2">
-                        <div class="flex-1 min-w-0">
-                            <span class="text-xs font-medium text-slate-400 uppercase tracking-wider block mb-1">BIC / SWIFT</span>
-                            <span id="field-bic" class="text-slate-800 font-mono font-bold text-base sm:text-lg block tracking-wider">CMCIFRPP</span>
-                        </div>
-                        <button onclick="copyToClipboard('field-bic', 'btn-bic')" id="btn-bic" class="p-2.5 text-slate-400 hover:text-brand-600 hover:bg-brand-50 active:bg-brand-100 rounded-xl transition-all flex-shrink-0" title="Copier le BIC">
-                            <i class="fa-regular fa-copy text-lg"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Field 4: Motif / Raison -->
-                <div class="bg-amber-50/70 rounded-2xl p-4 border border-amber-200/80 shadow-sm hover:border-amber-300 transition-colors">
-                    <div class="flex justify-between items-start gap-2">
-                        <div class="flex-1 min-w-0">
-                            <span class="text-xs font-semibold text-amber-700 uppercase tracking-wider block mb-1">
-                                <i class="fa-solid fa-circle-exclamation mr-1"></i> Motif / Raison du virement
-                            </span>
-                            <span id="field-motif" class="text-amber-950 font-bold text-base sm:text-lg block">DONATION</span>
-                        </div>
-                        <button onclick="copyToClipboard('field-motif', 'btn-motif')" id="btn-motif" class="p-2.5 text-amber-600 hover:text-amber-800 hover:bg-amber-100/80 active:bg-amber-200 rounded-xl transition-all flex-shrink-0" title="Copier le motif">
-                            <i class="fa-regular fa-copy text-lg"></i>
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Important Note -->
-            <div class="mt-6 p-4 rounded-2xl bg-blue-50/60 border border-blue-100 text-slate-600 text-xs sm:text-sm leading-relaxed flex items-start gap-3">
-                <i class="fa-solid fa-heart text-brand-500 text-lg mt-0.5 flex-shrink-0"></i>
-                <p>
-                    <strong>Merci pour votre soutien !</strong> Veuillez obligatoirement indiquer le motif <span class="font-bold text-slate-800">DONATION</span> lors de la validation de votre virement bancaire.
-                </p>
-            </div>
-
-        </div>
-
-        <!-- Footer -->
-        <footer class="text-center mt-8 text-xs text-slate-400">
-            <p>© PHARE DE L'ESPOIR — Virement bancaire sécurisé</p>
-        </footer>
-
-    </div>
-
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-sm font-medium opacity-0 pointer-events-none transition-all duration-300 transform translate-y-4 z-50">
-        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
-        <span id="toast-message">Texte copié dans le presse-papier !</span>
-    </div>
-
-    <script>
-        let toastTimeout;
-
-        // Function to copy specific element text
-        function copyToClipboard(elementId, buttonId) {
-            const textToCopy = document.getElementById(elementId).innerText.trim();
-            executeCopy(textToCopy);
-            
-            // Visual feedback on button
-            const btn = document.getElementById(buttonId);
-            if (btn) {
-                const originalHTML = btn.innerHTML;
-                btn.innerHTML = '<i class="fa-solid fa-check text-emerald-600 text-lg"></i>';
-                btn.classList.add('bg-emerald-50');
-                
-                setTimeout(() => {
-                    btn.innerHTML = originalHTML;
-                    btn.classList.remove('bg-emerald-50');
-                }, 2000);
-            }
-        }
-
-        // Function to copy ALL details combined
-        function copyAllDetails() {
-            const nom = document.getElementById('field-nom').innerText.trim();
-            const iban = document.getElementById('field-iban').innerText.trim();
-            const bic = document.getElementById('field-bic').innerText.trim();
-            const motif = document.getElementById('field-motif').innerText.trim();
-
-            const fullText = `TITULAIRE: ${nom}\nIBAN: ${iban}\nBIC: ${bic}\nMOTIF: ${motif}`;
-            executeCopy(fullText, "Toutes les coordonnées ont été copiées !");
-        }
-
-        // Clipboard executor with fallback support
-        function executeCopy(text, customToastMsg) {
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(text).then(() => {
-                    showToast(customToastMsg || "Copié dans le presse-papier !");
-                }).catch(err => {
-                    fallbackCopyText(text, customToastMsg);
-                });
-            } else {
-                fallbackCopyText(text, customToastMsg);
-            }
-        }
-
-        // Fallback copy implementation
-        function fallbackCopyText(text, customToastMsg) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            textArea.style.opacity = "0";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            try {
-                document.execCommand('copy');
-                showToast(customToastMsg || "Copié dans le presse-papier !");
-            } catch (err) {
-                showToast("Échec de la copie automatique.");
-            }
-            document.body.removeChild(textArea);
-        }
-
-        // Toast notification system
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toast-message');
-            
-            toastMessage.innerText = message;
-            toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
-            toast.classList.add('opacity-100', 'translate-y-0');
-
-            clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => {
-                toast.classList.remove('opacity-100', 'translate-y-0');
-                toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
-            }, 2500);
-        }
-    </script>
 </body>
 </html>
